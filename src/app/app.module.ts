@@ -7,27 +7,36 @@ import { InicioComponent } from './inicio/inicio.component';
 import {RouterModule, Routes} from "@angular/router";
 import { HeaderComponent } from './header/header.component';
 import { AddproveeComponent } from './proveedores/addprovee/addprovee.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { AddpresComponent } from './presupuestos/addpres/addpres.component';
 
 const routes: RouterModule = [
   { path: '', component: InicioComponent },
   { path: 'proveedores', component: ProveedoresComponent },
   {path: 'addprovee', component: AddproveeComponent},
+  {path: 'addpres', component: AddpresComponent},
   { path: '**', component: InicioComponent}
 ]
 @NgModule({
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(<Routes>routes),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports:[
+    FormsModule,
+    ReactiveFormsModule
+  ],
   declarations: [
     AppComponent,
     ProveedoresComponent,
     InicioComponent,
     HeaderComponent,
-    AddproveeComponent
+    AddproveeComponent,
+    AddpresComponent
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(<Routes>routes),
-    FormsModule
-  ],
+
   providers: [ProveedoresService],
   bootstrap: [AppComponent]
 })
