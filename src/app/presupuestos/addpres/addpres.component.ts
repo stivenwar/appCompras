@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {PresupuestosService} from "../../servicios/presupuestos.service";
 @Component({
   selector: 'app-addpres',
@@ -14,21 +14,23 @@ export class AddpresComponent implements OnInit {
   tipo: any;
   iva: any = 0;
   total: any = 0;
-  constructor(private pf:FormBuilder, private presupuestosService:PresupuestosService) {
-
+  constructor(private pf:FormBuilder, private presupuestosService:PresupuestosService ) {
   }
 
   ngOnInit(): void {
-    this.presupuestoForm = this.pf.group({
-      proveedor: ['', Validators.required ],
-      fecha: ['', Validators.required ],
-      concepto: ['', [ Validators.required, Validators.minLength(10)] ],
-      base: ['', Validators.required ],
-      tipo: ['', Validators.required ],
-      iva: this.iva ,
-      total: this.total
-  });
-    this.onChanges();
+   setTimeout(() => {
+     this.presupuestoForm = this.pf.group({
+       proveedor: ['', Validators.required ],
+       fecha: ['', Validators.required ],
+       concepto: ['', [ Validators.required, Validators.minLength(10)] ],
+       base: ['', Validators.required ],
+       tipo: ['', Validators.required ],
+       iva: this.iva ,
+       total: this.total
+
+     });
+     this.onChanges();
+   },0);
   }
 
   onChanges(): void {
@@ -42,6 +44,7 @@ export class AddpresComponent implements OnInit {
   onSubmit() {
     this.presupuesto = this.savePresupuesto();
     this.presupuestosService.postPresupuesto(this.presupuesto);
+    this.presupuestoForm.reset();
   }
   savePresupuesto(){
     const savePresupuesto = {
