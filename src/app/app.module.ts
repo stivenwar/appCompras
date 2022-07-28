@@ -9,12 +9,16 @@ import { HeaderComponent } from './header/header.component';
 import { AddproveeComponent } from './proveedores/addprovee/addprovee.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AddpresComponent } from './presupuestos/addpres/addpres.component';
+import {HttpClientModule} from "@angular/common/http";
+import {PresupuestosService} from "./servicios/presupuestos.service";
+import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
 
 const routes: RouterModule = [
   { path: '', component: InicioComponent },
   { path: 'proveedores', component: ProveedoresComponent },
   {path: 'addprovee', component: AddproveeComponent},
   {path: 'addpres', component: AddpresComponent},
+  { path: 'presupuestos', component: PresupuestosComponent },
   { path: '**', component: InicioComponent}
 ]
 @NgModule({
@@ -22,7 +26,8 @@ const routes: RouterModule = [
     BrowserModule,
     RouterModule.forRoot(<Routes>routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports:[
     FormsModule,
@@ -34,10 +39,11 @@ const routes: RouterModule = [
     InicioComponent,
     HeaderComponent,
     AddproveeComponent,
-    AddpresComponent
+    AddpresComponent,
+    PresupuestosComponent
   ],
 
-  providers: [ProveedoresService],
+  providers: [ProveedoresService,PresupuestosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
